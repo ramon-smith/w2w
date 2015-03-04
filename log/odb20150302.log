@@ -1,0 +1,120 @@
+------------------------------------------------------------------------------------------------------------------------
+
+[2015-03-02 15:18:48 #1 store] 
+Database '/Users/ramon/Documents/workspace/W2WBackEndProto/w2w.odb' is opened by 15245@Ramons-MacBook-Pro-3.local
+
+[2015-03-02 15:18:49 #2 type.registry] 
+New type Entitys.Customer
+
+[2015-03-02 15:18:49 #3 type] 
+Type Entitys.Customer is not enhanced.
+
+[2015-03-02 15:18:49 #4 type.registry] 
+New type org.joda.time.ReadableInstant
+
+[2015-03-02 15:18:49 #5 type.registry] 
+New type org.joda.time.base.AbstractInstant
+
+[2015-03-02 15:18:49 #6 type.registry] 
+New type org.joda.time.ReadableDateTime
+
+[2015-03-02 15:18:49 #7 type.registry] 
+New type org.joda.time.base.AbstractDateTime
+
+[2015-03-02 15:18:49 #8 type.registry] 
+New type org.joda.time.base.BaseDateTime
+
+[2015-03-02 15:18:49 #9 type.registry] 
+New type org.joda.time.DateTime
+
+[2015-03-02 15:18:49 #10 type.registry] 
+New type Entitys.BuildSite
+
+[2015-03-02 15:18:49 #11 type.registry] 
+New type java.util.ArrayList<Entitys.BuildSite>
+
+[2015-03-02 15:18:49 #12 type] 
+Type Entitys.BuildSite is not enhanced.
+
+[2015-03-02 15:18:49 #13 type.registry] 
+New type System.APIControl
+
+[2015-03-02 15:18:49 #14 type.registry] 
+New type System.SiteAccessTime
+
+[2015-03-02 15:18:49 #15 type.registry] 
+New type System.SiteAccessTime[]
+
+[2015-03-02 15:18:49 #16 type.registry] 
+New type Entitys.Task
+
+[2015-03-02 15:18:49 #17 type.registry] 
+New type Entitys.Task[]
+
+[2015-03-02 15:18:49 #18 type.registry] 
+New type java.util.ArrayList<java.lang.Object>
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2015-03-02 15:20:28 #1 store] 
+Database '/Users/ramon/Documents/workspace/W2WBackEndProto/w2w.odb' has been recovered (tr. 1-4)
+
+[2015-03-02 15:20:28 #2 store] 
+Database '/Users/ramon/Documents/workspace/W2WBackEndProto/w2w.odb' is opened by 15252@Ramons-MacBook-Pro-3.local
+
+[2015-03-02 15:20:28 #3 type] 
+Type Entitys.Customer is not enhanced.
+
+[2015-03-02 15:20:28 #4 type] 
+Type Entitys.BuildSite is not enhanced.
+
+[2015-03-02 15:20:28 #5 store] 
+Database '/Users/ramon/Documents/workspace/W2WBackEndProto/w2w.odb' is closed by 15252@Ramons-MacBook-Pro-3.local
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2015-03-02 15:23:55 #1 store] 
+Database '/Users/ramon/Documents/workspace/W2WBackEndProto/w2w.odb' is opened by 15260@Ramons-MacBook-Pro-3.local
+
+[2015-03-02 15:23:55 #2 type] 
+Type Entitys.Customer is not enhanced.
+
+[2015-03-02 15:23:55 #3 type] 
+Type Entitys.BuildSite is not enhanced.
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2015-03-02 15:40:37 #1 store] 
+Database '/Users/ramon/Documents/workspace/W2WBackEndProto/w2w.odb' is opened by 15284@Ramons-MacBook-Pro-3.local
+
+[2015-03-02 15:40:38 #2 type] 
+Type Entitys.Customer is not enhanced.
+
+[2015-03-02 15:40:38 #3 type] 
+Type Entitys.BuildSite is not enhanced.
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2015-03-02 15:40:58 #1 store] 
+Database '/Users/ramon/Documents/workspace/W2WBackEndProto/w2w.odb' is opened by 15286@Ramons-MacBook-Pro-3.local
+
+[2015-03-02 15:40:58 #2 type] 
+Type Entitys.Customer is not enhanced.
+
+[2015-03-02 15:40:58 #3 type] 
+Type Entitys.BuildSite is not enhanced.
+
+[2015-03-02 15:40:58 #4 store] 
+Database '/Users/ramon/Documents/workspace/W2WBackEndProto/w2w.odb' is closed by 15286@Ramons-MacBook-Pro-3.local
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2015-03-02 15:41:02 #1 store] 
+Database '/Users/ramon/Documents/workspace/W2WBackEndProto/w2w.odb' is opened by 15287@Ramons-MacBook-Pro-3.local
+
+[2015-03-02 15:41:03 #2 type] 
+Type Entitys.Customer is not enhanced.
+
+[2015-03-02 15:41:03 #3 type] 
+Type Entitys.BuildSite is not enhanced.
+
