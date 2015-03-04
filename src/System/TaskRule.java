@@ -50,7 +50,7 @@ public class TaskRule {
 						(failIfLTthresh ? "below" : "above") + " the threshold of " + threshold + ".";
 			}
 			//TODO Better wording required
-			if (i > 0){
+			if (failed && i > 0){
 				failedReason += " This test looks at forecast data " + hoursLookAhead + 
 						" hours ahead. The data causing this alert occurs at " + i + 
 						" hours from this time block";

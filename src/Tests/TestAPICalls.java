@@ -28,7 +28,7 @@ public class TestAPICalls {
 		for ( Task t : s.getTaskList() ){
 			//t.buildRulesJSONArray();
 			t.printHourlyInfo();
-			t.printUXHourly();
+//			t.printUXHourly();
 		}
 	}
 

@@ -39,7 +39,8 @@ public class Task {
 				boolean result = tr.applyRule(data);
 				System.out.print(result ? "PASS" : "FAIL");
 				System.out.println(" "+tr.getFailColour()+" "+tr.getFailAlert());
-				
+				if (!result)
+					System.out.println(tr.getFailedReason());
 			}
 		}
 	}
@@ -97,6 +98,8 @@ public class Task {
 					// only replace the task colour if it is not already red.
 					if (hourColour != TaskColour.RED)
 						hourColour = tr.getFailColour();
+					
+					
 				}
 			}
 			String col = hourColour.toString();

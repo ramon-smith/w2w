@@ -31,8 +31,8 @@ public class W2W {
 		tts.put("painting", painting);
 		
 		TaskType concrete = new TaskType();
-		concrete.addRule(new TaskRule("concEvap", 0.34, false, 0, TaskColour.RED, "High evaporation - palistic shrinkage cracks", false));
-		concrete.addRule(new TaskRule("concEvap", 0.2, false, 0, TaskColour.ORANGE, "High evaporation warning - palistic shrinkage cracks", false));
+		concrete.addRule(new TaskRule("concEvap", 0.34, false, 24, TaskColour.RED, "High evaporation - palistic shrinkage cracks", false));
+		concrete.addRule(new TaskRule("concEvap", 0.2, false, 24, TaskColour.ORANGE, "High evaporation warning - palistic shrinkage cracks", false));
 		concrete.addRule(new TaskRule("temperature", 0, true, 0, TaskColour.RED, "Concrete freezing and thawing cracks", false));
 		tts.put("concreting", concrete);
 		

@@ -1,0 +1,15 @@
+---== Ideas ==---
+
+BACKEND
+
+push notification to phone if during auto update a taskrule alert is tripped 
+for the next (2 ? this could be a user setting) hourly block
+
+
+
+
+FRONTEND
+
+a tripped taskrule can be clicked on, opening a popup with the warnings/alerts
+- each alert can be expanded with an explaination of how/why it was tripped in this instance,
+  by showing the thresholds and the actual forecast data that caused the alert.
