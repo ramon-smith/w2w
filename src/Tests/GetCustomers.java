@@ -7,7 +7,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
-import Entitys.BuildSite;
+import Entitys.WorkSite;
 import Entitys.Customer;
 
 public class GetCustomers {

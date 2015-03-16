@@ -2,7 +2,7 @@ package Tests;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import Entitys.BuildSite;
+import Entitys.WorkSite;
 import Entitys.Customer;
 import Entitys.Task;
 import System.W2W;
@@ -20,15 +20,15 @@ public class TestAPICalls {
 		
 		Customer c = new Customer("Ramon");
 		//BuildSite s = new BuildSite(-36.502550,  174.442353);
-		BuildSite s = new BuildSite(-36.502550,  174.442353);
+		WorkSite s = new WorkSite(-36.502550,  174.442353);
 		s.createNewTask("paint house", taskTypes.get("painting"));
 		s.createNewTask("concrete drive", taskTypes.get("concreting"));
 		s.createAPI();
 		
 		for ( Task t : s.getTaskList() ){
 			//t.buildRulesJSONArray();
-			t.printHourlyInfo();
-//			t.printUXHourly();
+//			t.printHourlyInfo();
+			t.printUXHourly();
 		}
 	}
 

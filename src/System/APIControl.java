@@ -4,6 +4,7 @@ import org.joda.time.DateTimeZone;
 import org.joda.time.Interval;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+
 import com.github.dvdme.ForecastIOLib.FIOCurrently;
 import com.github.dvdme.ForecastIOLib.FIODataPoint;
 import com.github.dvdme.ForecastIOLib.FIOHourly;
@@ -26,6 +27,16 @@ public class APIControl {
 		
 	}
 	
+
+	/**
+	 * 
+	 * @param tag
+	 */
+	public double[] getWXVariableData(String tag) {
+		// TODO - implement APIControl.getWXVariableData
+		throw new UnsupportedOperationException();
+	}
+
 
 	public double getCurrentData(String field){
 		updateIfRequired();
@@ -59,22 +70,6 @@ public class APIControl {
 		return data;
 	}
 	
-	public void updateIfRequired(){
-		if (lastUpdate == null){
-			fio.update();
-			lastUpdate = new DateTime();
-		}
-		else {
-			org.joda.time.Interval i = new Interval(lastUpdate, new DateTime());
-			int m = (int) i.toDuration().getStandardMinutes();
-			if (m >= UPDATE_AFTER_MINS){
-				System.out.print("^");
-				fio.update();
-				lastUpdate = new DateTime();
-			}
-		}
-	}
-	
 	public DateTime getTimestampForOffset(int offset){
 		FIODataPoint data = null;
 		
@@ -92,24 +87,21 @@ public class APIControl {
 		return ts;
 	}
 	
-	
-	public boolean callAPI() {
-		// TODO - implement APIControl.callAPI
-		throw new UnsupportedOperationException();
-	}
 
-	public boolean callAPICurrentObs() {
-		// TODO - implement APIControl.callAPICurrentObs
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param tag
-	 */
-	public double[] getWXVariableData(String tag) {
-		// TODO - implement APIControl.getWXVariableData
-		throw new UnsupportedOperationException();
+	public void updateIfRequired(){
+		if (lastUpdate == null){
+			fio.update();
+			lastUpdate = new DateTime();
+		}
+		else {
+			org.joda.time.Interval i = new Interval(lastUpdate, new DateTime());
+			int m = (int) i.toDuration().getStandardMinutes();
+			if (m >= UPDATE_AFTER_MINS){
+				System.out.print("^");
+				fio.update();
+				lastUpdate = new DateTime();
+			}
+		}
 	}
 
 }

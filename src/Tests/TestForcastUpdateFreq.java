@@ -2,7 +2,7 @@ package Tests;
 
 import org.joda.time.DateTime;
 
-import Entitys.BuildSite;
+import Entitys.WorkSite;
 import System.APIControl;
 
 public class TestForcastUpdateFreq {
@@ -10,7 +10,7 @@ public class TestForcastUpdateFreq {
 	public static void main(String[] args) throws InterruptedException {
 		
 		
-		BuildSite s = new BuildSite(-36.502550,  174.442353);
+		WorkSite s = new WorkSite(-36.502550,  174.442353);
 		s.createAPI();
 		APIControl api = s.getAPI();
 		

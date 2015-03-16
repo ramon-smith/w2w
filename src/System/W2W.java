@@ -9,12 +9,26 @@
 
 package System;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.ArrayList;
 import java.util.HashMap;
+
+import com.eclipsesource.json.JsonArray;
+import com.eclipsesource.json.JsonValue;
+
+import Entitys.Task;
+import Entitys.WorkSite;
 
 public class W2W {
 	
 	public static final String APIKEY = "d1708fec2337a66dfa54feea3d3fbbba";
 	public static HashMap<String,TaskType> taskTypes;
+	static ArrayList<WorkSite> storedSites;
 
 	public static HashMap<String,TaskType> buildTaskTypes(){
 		HashMap<String, TaskType> tts = new HashMap<>();
@@ -31,8 +45,8 @@ public class W2W {
 		tts.put("painting", painting);
 		
 		TaskType concrete = new TaskType();
-		concrete.addRule(new TaskRule("concEvap", 0.34, false, 24, TaskColour.RED, "High evaporation - palistic shrinkage cracks", false));
-		concrete.addRule(new TaskRule("concEvap", 0.2, false, 24, TaskColour.ORANGE, "High evaporation warning - palistic shrinkage cracks", false));
+		concrete.addRule(new TaskRule("concEvap", 1, false, 24, TaskColour.RED, "High evaporation - palistic shrinkage cracks", false));
+		concrete.addRule(new TaskRule("concEvap", 0.5, false, 24, TaskColour.ORANGE, "High evaporation warning - palistic shrinkage cracks", false));
 		concrete.addRule(new TaskRule("temperature", 0, true, 0, TaskColour.RED, "Concrete freezing and thawing cracks", false));
 		tts.put("concreting", concrete);
 		
@@ -42,8 +56,81 @@ public class W2W {
 	public static void main(String[] args) {
 		//BUILD TASKS AND RULES
 		taskTypes = buildTaskTypes();
+		
+		//store sites, APIcontrol retained, avoids extra api calls when data is the same
+		storedSites = new ArrayList<WorkSite>();
+		
+		int portNumber = 4144;
+		//TODO Multithread Sockets
+		//create socket
+		while (true){
+		 try  {
+		         	ServerSocket serverSocket = new ServerSocket(portNumber);
+		            Socket clientSocket = serverSocket.accept();
+		            PrintWriter out =
+		                new PrintWriter(clientSocket.getOutputStream(), true);
+		            BufferedReader in = new BufferedReader(
+		                new InputStreamReader(clientSocket.getInputStream()));
+		            
+		            //listen for site info
+		            String[] siteinfo = in.readLine().split(",");
+		            //check storedSites before creating a new one
+		            double lat = Double.valueOf(siteinfo[0]);
+		            double lon = Double.valueOf(siteinfo[1]);
+		            
+		            WorkSite site = findWorkSiteInCollection(lat, lon);
+		            
+		            if (site == null){
+		            	System.out.println("Site details recieved. Not stored in system, creating");
+		            	site = new WorkSite(lat, lon);
+		            }else{
+		            	System.out.println("Site details recieved, reusing stored copy");
+		            	site.clearTasks();
+		            }
+		            
+		            String lineIn = in.readLine();
+		            while (!lineIn.equals("endsite")){
+			            Task madeTask = site.createNewTask("nodesc", taskTypes.get(lineIn));
+			            JsonArray jar = madeTask.buildRulesJSONArray();
+	
+			            for (JsonValue jv : jar.values() ){
+			            	System.out.println(jv.toString());
+			            	out.println(jv.toString());
+			            }
+			            out.println("endtask");
+			            lineIn = in.readLine();
+		            }
+		            
+		            out.close();
+		            in.close();
+		            clientSocket.close();
+		            serverSocket.close();
+		        } catch (IOException e) {
+		            System.out.println("Exception caught when trying to listen on port "
+		                + portNumber + " or listening for a connection");
+		            System.out.println(e.getMessage());
+		        }
+		}
 
-
+	}
+	
+	
+	/**
+	 * Returns a WorkSite from storedSites matching the lat and long given, or null if not found
+	 * @param lat
+	 * @param lon
+	 * @return
+	 */
+	private static WorkSite findWorkSiteInCollection(double lat, double lon){
+		if (storedSites != null && storedSites.size()>0){
+			
+			for (WorkSite ws : storedSites){
+				if (ws.isSiteMatch(lat, lon))
+					return ws;
+			}
+			
+		}
+		return null;
 	}
 	
 	public W2W(){

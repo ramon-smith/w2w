@@ -2,14 +2,28 @@
 
 BACKEND
 
+Do we store data for lat/longs ?
+Avoid multiple api calls when data will be the same
+Either grouping similar locations together, or only reusing data for the EXACT lat/long
+
+
+FRONTEND
+
+
 push notification to phone if during auto update a taskrule alert is tripped 
 for the next (2 ? this could be a user setting) hourly block
 
 
 
-
-FRONTEND
-
 a tripped taskrule can be clicked on, opening a popup with the warnings/alerts
 - each alert can be expanded with an explaination of how/why it was tripped in this instance,
   by showing the thresholds and the actual forecast data that caused the alert.
+  
+  
+ FOR MVP
+ 
+ Will the task types be hard coded into the frontend? probably yes. no need to request these on startup
+ each will have an ID in database
+ 
+ each worksite will have to be updated separately. Manual refresh will exist on each site, as well as overall.
+ automatic update will happen at some predefined interval

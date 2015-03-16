@@ -14,13 +14,13 @@ public class Customer {
 //	private int customerID;
 //	private int contactDetails;
 	@OneToMany(cascade=CascadeType.PERSIST)
-	private ArrayList<BuildSite> buildSites;
+	private ArrayList<WorkSite> buildSites;
 	private transient DateTime lastContact;
 
 	
 	public Customer(String name){
 		loginName = name;
-		buildSites = new ArrayList<BuildSite>();
+		buildSites = new ArrayList<WorkSite>();
 	}
 	
 	public int minsSinceContact(){
@@ -32,7 +32,7 @@ public class Customer {
 		return Integer.MAX_VALUE;
 	}
 	
-	public void addBuildSite(BuildSite bs){
+	public void addBuildSite(WorkSite bs){
 		buildSites.add(bs);
 	}
 	

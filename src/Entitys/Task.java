@@ -16,10 +16,10 @@ public class Task {
 	private TaskType taskType;
 	private String taskDescription;
 	private boolean active;
-	private BuildSite siteParent;
+	private WorkSite siteParent;
 	
 	
-	public Task(BuildSite site, String desc, TaskType type){
+	public Task(WorkSite site, String desc, TaskType type){
 		this.siteParent = site;
 		this.taskType = type;
 		this.taskDescription = desc;
@@ -55,19 +55,30 @@ public class Task {
 			JsonObject o = new JsonObject();
 			o.add("Time", siteParent.getAPI().getTimestampForOffset(i).getMillis());
 			TaskColour hourColour = TaskColour.GREEN;
+			String message="";
+			String reason="";
 			for (TaskRule tr : taskType.getRules()){
 				double[] data = siteParent.getAPI().getHourlyData(tr.getWxProperty(), i);
 				boolean result = tr.applyRule(data);
 				if (!result){
-					
-					o.add("message", tr.getFailAlert());
+					//clear orange messages if this alert is RED
+					if (hourColour.equals(TaskColour.ORANGE) && tr.getFailColour().equals(TaskColour.RED)){
+						message = "";
+						reason = "";
+					}
+					if (!(hourColour.equals(TaskColour.RED) && tr.getFailColour().equals(TaskColour.ORANGE))){
+						message += tr.getFailAlert()+"@";
+						reason += tr.getFailedReason()+"@";
+					}
 					// only replace the task colour if it is not already red.
 					if (hourColour != TaskColour.RED)
 						hourColour = tr.getFailColour();
 				}
 			}
-			o.add("colour", hourColour.toString());
 			
+			o.add("colour", hourColour.toString());
+			o.add("message", message);
+			o.add("reason", reason);
 			
 			arrayOfHours.add(o);
 		}
