@@ -45,8 +45,8 @@ public class W2W {
 		tts.put("painting", painting);
 		
 		TaskType concrete = new TaskType();
-		concrete.addRule(new TaskRule("concEvap", 1, false, 24, TaskColour.RED, "High evaporation - palistic shrinkage cracks", false));
-		concrete.addRule(new TaskRule("concEvap", 0.5, false, 24, TaskColour.ORANGE, "High evaporation warning - palistic shrinkage cracks", false));
+		concrete.addRule(new TaskRule("concEvap", 1, false, 24, TaskColour.RED, "High evaporation - plastic shrinkage cracks", false));
+		concrete.addRule(new TaskRule("concEvap", 0.5, false, 24, TaskColour.ORANGE, "High evaporation warning - plastic shrinkage cracks", false));
 		concrete.addRule(new TaskRule("temperature", 0, true, 0, TaskColour.RED, "Concrete freezing and thawing cracks", false));
 		tts.put("concreting", concrete);
 		
@@ -72,39 +72,49 @@ public class W2W {
 		            BufferedReader in = new BufferedReader(
 		                new InputStreamReader(clientSocket.getInputStream()));
 		            
-		            //listen for site info
-		            String[] siteinfo = in.readLine().split(",");
-		            //check storedSites before creating a new one
-		            double lat = Double.valueOf(siteinfo[0]);
-		            double lon = Double.valueOf(siteinfo[1]);
-		            
-		            WorkSite site = findWorkSiteInCollection(lat, lon);
-		            
-		            if (site == null){
-		            	System.out.println("Site details recieved. Not stored in system, creating");
-		            	site = new WorkSite(lat, lon);
-		            }else{
-		            	System.out.println("Site details recieved, reusing stored copy");
-		            	site.clearTasks();
-		            }
-		            
-		            String lineIn = in.readLine();
-		            while (!lineIn.equals("endsite")){
-			            Task madeTask = site.createNewTask("nodesc", taskTypes.get(lineIn));
-			            JsonArray jar = madeTask.buildRulesJSONArray();
-	
-			            for (JsonValue jv : jar.values() ){
-			            	System.out.println(jv.toString());
-			            	out.println(jv.toString());
+		            System.out.println("---= Connection from "+clientSocket.getRemoteSocketAddress()+" =---");
+		            String line = in.readLine();
+		            while (!line.equals("endrequest")){
+		            	System.out.println("Processing Site " + line);
+			            //listen for site info
+			            String[] siteinfo = line.split(",");
+			            //check storedSites before creating a new one
+			            double lat = Double.valueOf(siteinfo[0]);
+			            double lon = Double.valueOf(siteinfo[1]);
+			            
+			            WorkSite site = findWorkSiteInCollection(lat, lon);
+			            
+			            if (site == null){
+			            	System.out.println("Site details recieved. Not stored in system, creating");
+			            	site = new WorkSite(lat, lon);
+			            	storedSites.add(site);
+			            }else{
+			            	System.out.println("Site details recieved, reusing stored copy");
+			            	site.clearTasks();
 			            }
-			            out.println("endtask");
-			            lineIn = in.readLine();
+			            
+			            String lineIn = in.readLine();
+			            while (!lineIn.equals("endsite")){
+				            Task madeTask = site.createNewTask("nodesc", taskTypes.get(lineIn));
+				            JsonArray jar = madeTask.buildRulesJSONArray();
+		
+				            for (JsonValue jv : jar.values() ){
+				            	System.out.println(jv.toString());
+				            	out.println(jv.toString());
+				            }
+				            out.println("endtask");
+				            lineIn = in.readLine();
+				            System.out.println("End of task");
+			            }
+			            System.out.println("End of site\n\n");
+			            line = in.readLine();
 		            }
 		            
 		            out.close();
 		            in.close();
 		            clientSocket.close();
 		            serverSocket.close();
+		            System.out.println("Client disconnected\n\n");
 		        } catch (IOException e) {
 		            System.out.println("Exception caught when trying to listen on port "
 		                + portNumber + " or listening for a connection");

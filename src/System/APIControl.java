@@ -4,6 +4,7 @@ import org.joda.time.DateTimeZone;
 import org.joda.time.Interval;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+import org.joda.time.tz.DateTimeZoneBuilder;
 
 import com.github.dvdme.ForecastIOLib.FIOCurrently;
 import com.github.dvdme.ForecastIOLib.FIODataPoint;
@@ -15,14 +16,15 @@ public class APIControl {
 	private static final int UPDATE_AFTER_MINS = 5;
 	private DateTime lastUpdate;
 	private ForecastIO fio;
+	private String localTZ;
 
 	public APIControl(String lat, String lon){
 		fio = new ForecastIO(W2W.APIKEY); //instantiate the class with the API key. 
 		fio.setExtend(true);
 		fio.setUnits(ForecastIO.UNITS_SI);             //sets the units as SI - optional
 		fio.setExcludeURL("daily,minutely,alerts,flags");             //excluded the minutely and hourly reports from the reply
-		//fio.setTime("2015-03-05T12:00:00+1300");
 		fio.getForecast(lat,lon);
+		localTZ = fio.getTimezone();
 		lastUpdate = new DateTime();
 		
 	}
@@ -76,6 +78,7 @@ public class APIControl {
 		if (offset == 0){
 			FIOCurrently current = new FIOCurrently(fio);
 			data = current.get();
+			data.getTimezone();
 		}else {
 			FIOHourly hrly = new FIOHourly(fio);
 			data = hrly.getHour(offset);
@@ -83,7 +86,7 @@ public class APIControl {
 		DateTimeFormatter dtf = DateTimeFormat.forPattern("dd-MM-yyyy HH:mm:ss");
 		String time = data.time();
 		String tz = data.getTimezone();
-		DateTime ts = dtf.withZone(DateTimeZone.forID(tz)).parseDateTime(time).withZone(new DateTime().getZone());
+		DateTime ts = dtf.withZone(DateTimeZone.forID(tz)).parseDateTime(time).withZone(DateTimeZone.forID(localTZ));
 		return ts;
 	}
 	

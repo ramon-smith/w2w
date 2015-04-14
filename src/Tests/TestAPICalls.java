@@ -19,15 +19,15 @@ public class TestAPICalls {
 		HashMap<String, TaskType> taskTypes = W2W.buildTaskTypes();
 		
 		Customer c = new Customer("Ramon");
-		//BuildSite s = new BuildSite(-36.502550,  174.442353);
-		WorkSite s = new WorkSite(-36.502550,  174.442353);
-		s.createNewTask("paint house", taskTypes.get("painting"));
+		//BuildSite s = new BuildSite(13.7563,  100.5018);
+		WorkSite s = new WorkSite(13.7563,  100.5018);
+		//s.createNewTask("paint house", taskTypes.get("painting"));
 		s.createNewTask("concrete drive", taskTypes.get("concreting"));
 		s.createAPI();
 		
 		for ( Task t : s.getTaskList() ){
 			//t.buildRulesJSONArray();
-//			t.printHourlyInfo();
+			t.printHourlyInfo();
 			t.printUXHourly();
 		}
 	}
